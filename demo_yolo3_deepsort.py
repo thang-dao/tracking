@@ -76,7 +76,7 @@ class Detector(object):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("VIDEO_PATH", type=str)
+    parser.add_argument("VIDEO_PATH", type=str, default="/home/vietthangtik15/dataset/input/video_1.mp4")
     parser.add_argument("--yolo_cfg", type=str, default="YOLOv3/cfg/yolo_v3.cfg")
     parser.add_argument("--yolo_weights", type=str, default="YOLOv3/yolov3.weights")
     parser.add_argument("--yolo_names", type=str, default="YOLOv3/cfg/coco.names")
@@ -87,7 +87,7 @@ def parse_args():
     parser.add_argument("--ignore_display", dest="display", action="store_false")
     parser.add_argument("--display_width", type=int, default=800)
     parser.add_argument("--display_height", type=int, default=600)
-    parser.add_argument("--save_path", type=str, default="demo.avi")
+    parser.add_argument("--save_path", type=str, default="/home/vietthangtik15/dataset/output/demo.avi")
     return parser.parse_args()
 
 
