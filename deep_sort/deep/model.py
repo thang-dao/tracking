@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from deep-person-reid.torchreid.models.patchnet import PatchNet
 
 class BasicBlock(nn.Module):
     def __init__(self, c_in, c_out,is_downsample=False):
