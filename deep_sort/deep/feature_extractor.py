@@ -9,7 +9,8 @@ from .patchnet import PatchNet
 class Extractor(object):
     def __init__(self, model_path, model_name, use_cuda=True):
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
-        state_dict = torch.load(model_path)['net_dict']
+        # state_dict = torch.load(model_path)['net_dict']
+        state_dict = torch.load(model_path)
         self.net.load_state_dict(state_dict)
         print("Loading weights from {}... Done!".format(model_path))
         if model_name == "darknet":
