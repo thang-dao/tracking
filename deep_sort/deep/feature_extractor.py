@@ -4,28 +4,29 @@ import numpy as np
 import cv2
 
 from .model import Net
+from .patchnet import PatchNet
 
 class Extractor(object):
     def __init__(self, model_path, model_name, use_cuda=True):
-        self.net = Net(reid=True)
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
         state_dict = torch.load(model_path)['net_dict']
         self.net.load_state_dict(state_dict)
         print("Loading weights from {}... Done!".format(model_path))
-        self.net.to(self.device)
         if model_name == "darknet":
+            self.net = Net(reid=True)
             self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
         elif model_name == "patchnet":
+            self.net = PatchNet()
             self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
-        
+        self.net.to(self.device)
 
 
     def _preprocess(self, im_crops):

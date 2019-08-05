@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from deep-person-reid.torchreid.models.patchnet import PatchNet
 
 class BasicBlock(nn.Module):
     def __init__(self, c_in, c_out,is_downsample=False):
@@ -99,7 +100,7 @@ if __name__ == '__main__':
     net = Net()
     x = torch.randn(4,3,128,64)
     y = net(x)
-    print(y.shape)
+    # print(y.shape)
     # import ipdb; ipdb.set_trace()
 
 
