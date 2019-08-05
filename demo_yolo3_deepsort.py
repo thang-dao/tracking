@@ -24,7 +24,6 @@ class Detector(object):
 
 
     def __enter__(self):
-        print(self.args.VIDEO_PATH)
         assert os.path.isfile(self.args.VIDEO_PATH), "Error: path error"
         self.vdo.open(self.args.VIDEO_PATH)
         self.im_width = int(self.vdo.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -77,7 +76,7 @@ class Detector(object):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("VIDEO_PATH", type=str, default="/home/vietthangtik15/dataset/input/video_1.mp4")
+    parser.add_argument("--VIDEO_PATH", type=str, default="/home/vietthangtik15/dataset/input/video_1.mp4")
     parser.add_argument("--yolo_cfg", type=str, default="YOLOv3/cfg/yolo_v3.cfg")
     parser.add_argument("--yolo_weights", type=str, default="YOLOv3/yolov3.weights")
     parser.add_argument("--yolo_names", type=str, default="YOLOv3/cfg/coco.names")
