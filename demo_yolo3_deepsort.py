@@ -47,7 +47,7 @@ class Detector(object):
             start = time.time()
             _, ori_im = self.vdo.retrieve()
             im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
-            im = ori_im
+            im = ori_im 
             bbox_xcycwh, cls_conf, cls_ids = self.yolo3(im)
             if bbox_xcycwh is not None:
                 # select class person
