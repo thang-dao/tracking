@@ -20,7 +20,7 @@ class Detector(object):
 
         self.vdo = cv2.VideoCapture()
         self.yolo3 = YOLOv3(args.yolo_cfg, args.yolo_weights, args.yolo_names, is_xywh=True, conf_thresh=args.conf_thresh, nms_thresh=args.nms_thresh)
-        self.deepsort = DeepSort(args.deepsort_checkpoint)
+        self.deepsort = DeepSort(args.deepsort_checkpoint, args.model_name)
         self.class_names = self.yolo3.class_names
 
 
@@ -88,6 +88,7 @@ def parse_args():
     parser.add_argument("--ignore_display", dest="display", action="store_false")
     parser.add_argument("--display_width", type=int, default=800)
     parser.add_argument("--display_height", type=int, default=600)
+    parser.add_argument("--model_name", type=str, default='darknet')
     parser.add_argument("--save_path", type=str, default="/home/vietthangtik15/dataset/output/demo.avi")
     return parser.parse_args()
 
