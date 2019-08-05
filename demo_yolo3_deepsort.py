@@ -24,6 +24,7 @@ class Detector(object):
 
 
     def __enter__(self):
+        print(self.args.VIDEO_PATH)
         assert os.path.isfile(self.args.VIDEO_PATH), "Error: path error"
         self.vdo.open(self.args.VIDEO_PATH)
         self.im_width = int(self.vdo.get(cv2.CAP_PROP_FRAME_WIDTH))
