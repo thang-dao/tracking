@@ -99,7 +99,7 @@ if __name__ == '__main__':
     net = Net()
     x = torch.randn(4,3,128,64)
     y = net(x)
-    print(y)
+    print(y.shape)
     # import ipdb; ipdb.set_trace()
 
 
