@@ -15,9 +15,9 @@ class Tracker:
     ----------
     metric : nn_matching.NearestNeighborDistanceMetric
         A distance metric for measurement-to-track association.
-    max_age : int
+    max_age : int 
         Maximum number of missed misses before a track is deleted.
-    n_init : int
+    n_init : int 
         Number of consecutive detections before the track is confirmed. The
         track state is set to `Deleted` if a miss occurs within the first
         `n_init` frames.
