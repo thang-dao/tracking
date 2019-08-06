@@ -23,12 +23,12 @@ class Extractor(object):
             ])
         elif model_name == "patchnet":
             self.net = patchnet()
-            # self.size = (64, 128)
-            self.norm = transforms.Compose([
+            self.transform = transforms.Compose([
                 transforms.Resize((384, 128)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
+
         self.net = load_pretrained_weights(self.net, model_path)
         # self.net.load_state_dict(torch.load(model_path)['state_dict'])
         # self.net.eval()
@@ -55,15 +55,14 @@ class Extractor(object):
             return cv2.resize(im.astype(np.float32)/255., size)
 
         im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
-        # im_batch = torch.cat([self.norm(Image.fromarray(imgCrop).convert("RGB").unsqueeze(0)) for imgCrop in im_crops])
         return im_batch
 
     def extract_reid_features(self, tlbrs, image):
         imgCrops = []
         for box in tlbrs:
-            # print('(box)', box)
             x1, y1, x2, y2 = box
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
+            print(imgCrop.shape)
             imgCrop = self.norm(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
