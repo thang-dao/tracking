@@ -60,7 +60,7 @@ class Extractor(object):
     def extract_reid_features(self, tlbrs, image):
         imgCrops = []
         for box in tlbrs:
-            x1, y1, x2, y2 = box
+            x2, y2, x1, y1 = box
             print(x1, y1, x2, y2)
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             print(imgCrop.shape)
