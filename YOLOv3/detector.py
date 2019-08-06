@@ -39,6 +39,7 @@ class YOLOv3(object):
             out_boxes = self.net(img)
             boxes = get_all_boxes(out_boxes, self.conf_thresh, self.net.num_classes, self.use_cuda)[0]
             boxes = nms(boxes, self.nms_thresh)
+            re_boxes = boxes
             # print(boxes)
         # plot boxes
         if self.is_plot:
@@ -63,8 +64,9 @@ class YOLOv3(object):
             bbox[:,3] = (boxes[:,1]+boxes[:,3]/2.0)*height
         cls_conf = boxes[:,5]
         cls_ids = boxes[:,6]
-        print(bbox[:,0], bbox[:,1], bbox[:,2], bbox[:,3])
-        return bbox, cls_conf, cls_ids
+        # print(bbox[:,0], bbox[:,1], bbox[:,2], bbox[:,3])
+        # return bbox, cls_conf, cls_ids
+        return re_boxes, cls_conf, cls_ids
 
     def load_class_names(self,namesfile):
         with open(namesfile, 'r', encoding='utf8') as fp:
@@ -88,10 +90,10 @@ class YOLOv3(object):
             # put texts and rectangles
             img = cv2.putText(img, self.class_names[cls_id], (x1,y1),cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
             img = cv2.rectangle(img,(x1,y1),(x2,y2),color,2)
-            print(x1, y1, x2, y2)
-            image = img[y1:y2, x1:x2]
+            # print(x1, y1, x2, y2)
+            # image = img[y1:y2, x1:x2]
             
-            cv2.imwrite("../"+str(x1)+".jpg", image)
+            # cv2.imwrite("../"+str(x1)+".jpg", image)
         return img
 
 if __name__ == '__main__':

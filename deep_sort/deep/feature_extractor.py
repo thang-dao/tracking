@@ -59,17 +59,18 @@ class Extractor(object):
 
     def extract_reid_features(self, tlbrs, image):
         imgCrops = []
+        height , width = image.shape[:2]
         for box in tlbrs:
-            x, y, width, height = box
-            # x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
-            # y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
-            # x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
-            # y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
-            print(x, y, width, height)
-            imgCrop = image[int(y):int(y+height), int(x):int(x+width)]
-            cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
-            print(imgCrop.shape)
-            cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", image)
+            # x, y, width, height = box
+            x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
+            y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
+            x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
+            y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
+            # print(x, y, width, height)
+            imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
+            # cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
+            # print(imgCrop.shape)
+            # cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", image)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
