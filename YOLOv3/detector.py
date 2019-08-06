@@ -39,6 +39,7 @@ class YOLOv3(object):
             out_boxes = self.net(img)
             boxes = get_all_boxes(out_boxes, self.conf_thresh, self.net.num_classes, self.use_cuda)[0]
             boxes = nms(boxes, self.nms_thresh)
+            print(type(boxes))
             re_boxes = boxes
             # print(boxes)
         # plot boxes
