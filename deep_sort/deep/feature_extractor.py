@@ -51,7 +51,8 @@ class Extractor(object):
 
 
     def __call__(self, im_crops):
-        im_batch = self._preprocess(im_crops)
+        # im_batch = self._preprocess(im_crops)
+        im_batch = im_crops
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
             features = self.net(im_batch)
