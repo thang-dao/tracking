@@ -61,14 +61,12 @@ class Extractor(object):
         imgCrops = []
         height , width = image.shape[:2]
         for box in tlbrs:
-            # x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
-            # y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
-            # x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
-            # y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
             x, y, w, h = box
             print(x, y, w, h)
             imgCrop = image[int(x):int(x+w), int(y):int(y+h)]
             print(imgCrop.shape)
+            cv2.write("/home/vietthangtik15/tracking/frame", imgCrop)
+            break
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
@@ -78,7 +76,6 @@ class Extractor(object):
         return imgCrops
 
     # def __call__(self, im_crops):
-    #     im_batch = extract_reid_features(self.norm, image, tlbrs)
     #     # im_batch = self._preprocess(im_crops)
     #     with torch.no_grad():
     #         im_batch = im_batch.to(self.device)
