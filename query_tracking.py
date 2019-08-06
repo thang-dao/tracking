@@ -48,15 +48,13 @@ class Detector(object):
             _, ori_im = self.vdo.retrieve()
             im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
             im = ori_im 
+            cv2.imwrite("ori_im.jpg", ori_im)
             bbox_xcycwh, cls_conf, cls_ids = self.yolo3(im)
             if bbox_xcycwh is not None:
                 # select class person
                 mask = cls_ids==0
-                print('before bbox_xcycwh', bbox_xcycwh)
                 bbox_xcycwh = bbox_xcycwh[mask]
-                print('after bbox_xcycwh', bbox_xcycwh)
                 bbox_xcycwh[:,3:] *= 1.2
-                print('after bbox_xcycwh', bbox_xcycwh)
                 cls_conf = cls_conf[mask]
                 outputs = self.deepsort.update(bbox_xcycwh, cls_conf, im)
                 if len(outputs) > 0:
