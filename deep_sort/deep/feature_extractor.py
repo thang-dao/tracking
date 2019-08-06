@@ -10,7 +10,7 @@ class Extractor(object):
     def __init__(self, model_path, model_name, use_cuda=True):
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
         # state_dict = torch.load(model_path)['net_dict']
-        state_dict = torch.load(model_path)
+        # state_dict = torch.load(model_path)
         print("Loading weights from {}... Done!".format(model_path))
         if model_name == "darknet":
             self.net = Net(reid=True)
@@ -26,7 +26,8 @@ class Extractor(object):
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
-        self.net.load_state_dict(state_dict)
+        self.net.load_state_dict(torch.load(model_path))
+        self.net.eval()
         self.net.to(self.device)
 
 
