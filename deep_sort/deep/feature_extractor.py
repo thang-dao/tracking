@@ -31,7 +31,7 @@ class Extractor(object):
         self.net = load_pretrained_weights(self.net, model_path)
         # self.net.load_state_dict(torch.load(model_path)['state_dict'])
         # self.net.eval()
-        # self.net.to(self.device)
+        self.net.to(self.device)
 
 
     def _preprocess(self, im_crops):
