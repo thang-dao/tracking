@@ -103,7 +103,6 @@ class PatchNet(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-        print(x.size(), self.stripe)
         x = self.backbone.conv1(x)
         x = self.backbone.bn1(x)
         x = self.backbone.relu(x)
@@ -115,7 +114,7 @@ class PatchNet(nn.Module):
         x = self.backbone.layer4(x)
         patch = self.patch_proposal(x)
         print(x.size(), self.stripe)
-        assert x.size(2) % self.stripe == 0 
+        # assert x.size(2) % self.stripe == 0 
 
 
         local_feat_list = []
