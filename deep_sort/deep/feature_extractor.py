@@ -22,8 +22,9 @@ class Extractor(object):
             ])
         elif model_name == "patchnet":
             self.net = patchnet()
-            self.size = (64, 128)
+            # self.size = (64, 128)
             self.norm = transforms.Compose([
+                transforms.resize((384, 128)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
