@@ -22,7 +22,7 @@ class Extractor(object):
             ])
         elif model_name == "patchnet":
             self.net = patchnet()
-            # self.size = (64, 128)
+            self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.Resize((384, 128)),
                 transforms.ToTensor(),
@@ -46,13 +46,14 @@ class Extractor(object):
         def _resize(im, size):
             return cv2.resize(im.astype(np.float32)/255., size)
 
+        # im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
         im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
         return im_batch
 
 
     def __call__(self, im_crops):
-        # im_batch = self._preprocess(im_crops)
-        im_batch = im_crops
+        im_batch = self._preprocess(im_crops)
+        # im_batch = im_crops
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
             features = self.net(im_batch)
