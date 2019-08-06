@@ -73,7 +73,7 @@ class PatchNet(nn.Module):
         self.is_for_test = is_for_test
         self.backbone = backbone(num_classes=class_num, pretrained=pretrained)
         self.new = nn.ModuleList()
-        self.stripe = 6
+        self.stripe = 8
         down = nn.ModuleList([nn.Sequential(nn.Conv2d(2048, 256, 1),
                                             nn.BatchNorm2d(256),
                                             nn.ReLU(inplace=True)
