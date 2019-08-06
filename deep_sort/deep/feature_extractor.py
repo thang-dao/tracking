@@ -63,7 +63,7 @@ class Extractor(object):
             x1, y1, x2, y2 = box
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             print(imgCrop.shape)
-            imgCrop = self.norm(Image.fromarray(imgCrop).convert("RGB"))
+            imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
 
