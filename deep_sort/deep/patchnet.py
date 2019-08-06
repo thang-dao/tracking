@@ -113,8 +113,8 @@ class PatchNet(nn.Module):
         x = self.backbone.layer3(x)
         x = self.backbone.layer4(x)
         patch = self.patch_proposal(x)
-        print(x.size(), self.stripe)
-        # assert x.size(2) % self.stripe == 0 
+        # print(x.size(), self.stripe)
+        assert x.size(2) % self.stripe == 0 
 
 
         local_feat_list = []
