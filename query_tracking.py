@@ -52,7 +52,7 @@ class Detector(object):
             if bbox_xcycwh is not None:
                 # select class person
                 mask = cls_ids==0
-
+                print('bbox_xcycwh', bbox_xcycwh.shape)
                 bbox_xcycwh = bbox_xcycwh[mask]
                 bbox_xcycwh[:,3:] *= 1.2
 
@@ -83,7 +83,7 @@ def parse_args():
     parser.add_argument("--conf_thresh", type=float, default=0.5)
     parser.add_argument("--nms_thresh", type=float, default=0.4)
     parser.add_argument("--deepsort_checkpoint", type=str, default="deep_sort/deep/checkpoint/patchnet.pth")
-    
+
     parser.add_argument("--max_dist", type=float, default=0.2)
     parser.add_argument("--ignore_display", dest="display", action="store_false")
     parser.add_argument("--display_width", type=int, default=800)
