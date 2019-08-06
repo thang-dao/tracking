@@ -55,6 +55,7 @@ class Extractor(object):
         # im_batch = im_crops
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
+            print('im batch', im_batch.shape)
             features = self.net(im_batch)
         return features.cpu().numpy()
 
