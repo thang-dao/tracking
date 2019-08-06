@@ -59,14 +59,17 @@ class Extractor(object):
 
     def extract_reid_features(self, tlbrs, image):
         imgCrops = []
-        height , width = image.shape[:2]
         for box in tlbrs:
-            x, y, w, h = box
-            print(x, y, w, h)
-            imgCrop = image[int(y):int(y+h), int(x):int(x+w)]
-            cv2.circle(image, (int(x),int(y)), 10, (255, 255, 0))
+            x, y, width, height = box
+            x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
+            y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
+            x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
+            y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
+            print(x, y, width, height)
+            imgCrop = image[int(y1):int(y1), int(x1):int(x2)]
+            # cv2.circle(image, (int(x),int(y)), 10, (255, 255, 0))
             print(imgCrop.shape)
-            cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", image)
+            cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", imgCrop)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
