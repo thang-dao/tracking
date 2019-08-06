@@ -56,7 +56,7 @@ class Detector(object):
                 bbox_xcycwh = bbox_xcycwh[mask]
                 print('after bbox_xcycwh', bbox_xcycwh)
                 bbox_xcycwh[:,3:] *= 1.2
-
+                print('after bbox_xcycwh', bbox_xcycwh)
                 cls_conf = cls_conf[mask]
                 outputs = self.deepsort.update(bbox_xcycwh, cls_conf, im)
                 if len(outputs) > 0:
