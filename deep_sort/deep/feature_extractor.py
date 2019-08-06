@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 
 from .model import Net
-from .patchnet import PatchNet
+from .patchnet import patchnet
 
 class Extractor(object):
     def __init__(self, model_path, model_name, use_cuda=True):
@@ -20,7 +20,7 @@ class Extractor(object):
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
         elif model_name == "patchnet":
-            self.net = PatchNet()
+            self.net = patchnet()
             self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.ToTensor(),
