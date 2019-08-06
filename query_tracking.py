@@ -52,8 +52,9 @@ class Detector(object):
             if bbox_xcycwh is not None:
                 # select class person
                 mask = cls_ids==0
-                print('bbox_xcycwh', bbox_xcycwh.shape)
+                print('before bbox_xcycwh', bbox_xcycwh)
                 bbox_xcycwh = bbox_xcycwh[mask]
+                print('after bbox_xcycwh', bbox_xcycwh)
                 bbox_xcycwh[:,3:] *= 1.2
 
                 cls_conf = cls_conf[mask]
