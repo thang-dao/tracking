@@ -11,7 +11,7 @@ __all__ = ['DeepSort']
 
 
 class DeepSort(object):
-    def __init__(self, model_path, model_name, max_dist=0.2):
+    def __init__(self, model_path, model_name,  max_dist=0.2):
         self.min_confidence = 0.3
         self.nms_max_overlap = 1.0
 
@@ -86,17 +86,19 @@ class DeepSort(object):
         y2 = min(int(y+h),self.height-1)
         return x1,y1,x2,y2
     
+    # def _get_features(self, bbox_xywh, ori_img):
+    #     im_crops = []
+    #     for box in bbox_xywh:
+    #         x1,y1,x2,y2 = self._xywh_to_xyxy(box)
+    #         im = ori_img[y1:y2,x1:x2]
+    #         im_crops.append(im)
+    #     if im_crops:
+    #         features = self.extractor(im_crops) 
+    #         # print('features shape', features.shape)
+    #     else:
+    #         features = np.array([])
+    #     return features
     def _get_features(self, bbox_xywh, ori_img):
-        im_crops = []
-        for box in bbox_xywh:
-            x1,y1,x2,y2 = self._xywh_to_xyxy(box)
-            im = ori_img[y1:y2,x1:x2]
-            im_crops.append(im)
-        if im_crops:
-            features = self.extractor(im_crops)
-            print('features shape', features.shape)
-        else:
-            features = np.array([])
-        return features
+        return self.extractor(bbox_xywh, ori_img)
 
 

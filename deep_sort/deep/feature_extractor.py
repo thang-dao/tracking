@@ -42,23 +42,52 @@ class Extractor(object):
             2. resize to (64, 128) as Market1501 dataset did
             3. concatenate to a numpy array
             3. to torch Tensor
+            imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
+            imgCrop = transform(Image.fromarray(imgCrop).convert("RGB"))
+            imgCrop = imgCrop.unsqueeze(0)
+            imgCrops.append(imgCrop)
+
+        imgCrops = torch.cat(imgCrops, 0)
+        imgCrops
             4. normalize
         """
         def _resize(im, size):
             return cv2.resize(im.astype(np.float32)/255., size)
 
-        # im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
-        im_batch = torch.cat([self.norm(Image.fromarray(imgCrop).convert("RGB").unsqueeze(0)) for imgCrop in im_crops])
+        im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
+        # im_batch = torch.cat([self.norm(Image.fromarray(imgCrop).convert("RGB").unsqueeze(0)) for imgCrop in im_crops])
         return im_batch
 
+    def extract_reid_features(transform, image, tlbrs):
+        imgCrops = []
+        for box in tlbrs:
+            x1, y1, x2, y2 = box
+            imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
+            imgCrop = transform(Image.fromarray(imgCrop).convert("RGB"))
+            imgCrop = imgCrop.unsqueeze(0)
+            imgCrops.append(imgCrop)
 
-    def __call__(self, im_crops):
-        im_batch = self._preprocess(im_crops)
+        imgCrops = torch.cat(imgCrops, 0)
+        imgCrops = imgCrops.cuda()
+        return imgCrops
+
+    # def __call__(self, im_crops):
+    #     im_batch = extract_reid_features(self.norm, image, tlbrs)
+    #     # im_batch = self._preprocess(im_crops)
+    #     with torch.no_grad():
+    #         im_batch = im_batch.to(self.device)
+    #         # print('im batch', im_batch.shape)
+    #         features = self.net(im_batch)
+    #     return features.cpu().numpy()
+    def __call__(self, bbox_xywh, image):
+        im_batch = extract_reid_features(self.norm, bbox_xywh, image)
+        # im_batch = self._preprocess(im_crops)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
-            print('im batch', im_batch.shape)
+            # print('im batch', im_batch.shape)
             features = self.net(im_batch)
         return features.cpu().numpy()
+
 
 
 if __name__ == '__main__':
