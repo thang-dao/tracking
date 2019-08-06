@@ -77,10 +77,10 @@ class Extractor(object):
     #     with torch.no_grad():
     #         im_batch = im_batch.to(self.device)
     #         # print('im batch', im_batch.shape)
-    #         features = self.net(im_batch)
+    #         features = self.net(im_batch) 
     #     return features.cpu().numpy()
     def __call__(self, bbox_xywh, image):
-        im_batch = extract_reid_features(self.norm, bbox_xywh, image)
+        im_batch = self.extract_reid_features(self.norm, bbox_xywh, image)
         # im_batch = self._preprocess(im_crops)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
