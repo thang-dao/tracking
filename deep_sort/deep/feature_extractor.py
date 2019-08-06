@@ -63,7 +63,7 @@ class Extractor(object):
         for box in tlbrs:
             x, y, w, h = box
             print(x, y, w, h)
-            imgCrop = image[int(y):int(y+h), int(x):int(x+w)]
+            imgCrop = image[int(y):int(y-h), int(x):int(x-w)]
             print(imgCrop.shape)
             cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", imgCrop)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
