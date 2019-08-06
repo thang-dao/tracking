@@ -65,7 +65,7 @@ class Extractor(object):
             print(x, y, w, h)
             imgCrop = image[int(x):int(x+w), int(y):int(y+h)]
             print(imgCrop.shape)
-            cv2.imwrite("/home/vietthangtik15/tracking/"+ x+ ".png", imgCrop)
+            cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", imgCrop)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
