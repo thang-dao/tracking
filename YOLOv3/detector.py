@@ -87,7 +87,7 @@ class YOLOv3(object):
             # put texts and rectangles
             img = cv2.putText(img, self.class_names[cls_id], (x1,y1),cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
             img = cv2.rectangle(img,(x1,y1),(x2,y2),color,2)
-            image = img[x1:x2, y1:y2]
+            image = img[y1:y2, x1:x2]
             cv2.imwrite("../"+str(x1)+".jpg", image)
         return img
 
