@@ -93,7 +93,7 @@ if __name__ == '__main__':
     yolo3 = YOLOv3("cfg/yolo_v3.cfg","yolov3.weights","cfg/coco.names", is_plot=True)
     print("yolo3.size =",yolo3.size)
     import os
-    root = "images/"
+    root = "/home/vietthangtik15/tracking/images"
     files = [os.path.join(root,file) for file in os.listdir(root)]
     files.sort()
     for filename in files:
