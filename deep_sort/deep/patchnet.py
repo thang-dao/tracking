@@ -73,7 +73,7 @@ class PatchNet(nn.Module):
         self.is_for_test = is_for_test
         self.backbone = backbone(num_classes=class_num, pretrained=pretrained)
         self.new = nn.ModuleList()
-        self.stripe = 8
+        self.stripe = 6
         down = nn.ModuleList([nn.Sequential(nn.Conv2d(2048, 256, 1),
                                             nn.BatchNorm2d(256),
                                             nn.ReLU(inplace=True)
@@ -114,7 +114,7 @@ class PatchNet(nn.Module):
         x = self.backbone.layer3(x)
         x = self.backbone.layer4(x)
         patch = self.patch_proposal(x)
-        print(x.size(2), self.stripe)
+        print(x.size(), self.stripe)
         assert x.size(2) % self.stripe == 0 
 
 
