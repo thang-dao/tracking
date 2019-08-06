@@ -2,6 +2,7 @@ import torch
 import torchvision.transforms as transforms
 import numpy as np
 import cv2
+from PIL import Image
 
 from .model import Net
 from .patchnet import patchnet
@@ -24,7 +25,7 @@ class Extractor(object):
             self.net = patchnet()
             # self.size = (64, 128)
             self.norm = transforms.Compose([
-                # transforms.Resize((384, 128)),
+                transforms.Resize((384, 128)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
@@ -46,7 +47,8 @@ class Extractor(object):
         def _resize(im, size):
             return cv2.resize(im.astype(np.float32)/255., size)
 
-        im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
+        # im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
+        im_batch = torch.cat([self.norm(_resize(Image.fromarray(imgCrop).convert("RGB"), self.size).unsqueeze(0)) for imgCrop in im_crops])
         return im_batch
 
 
