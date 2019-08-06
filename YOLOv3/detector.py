@@ -93,7 +93,7 @@ if __name__ == '__main__':
     yolo3 = YOLOv3("cfg/yolo_v3.cfg","yolov3.weights","cfg/coco.names", is_plot=True)
     print("yolo3.size =",yolo3.size)
     import os
-    root = "../demo"
+    root = "images/"
     files = [os.path.join(root,file) for file in os.listdir(root)]
     files.sort()
     for filename in files:
@@ -101,7 +101,7 @@ if __name__ == '__main__':
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         res = yolo3(img)
         # save results
-        # cv2.imwrite("../result/{}".format(os.path.basename(filename)),res[:,:,(2,1,0)])
+        cv2.imwrite("../{}".format(os.path.basename(filename)),res[:,:,(2,1,0)])
         # imshow
         # cv2.namedWindow("yolo3", cv2.WINDOW_NORMAL)
         # cv2.resizeWindow("yolo3", 600,600)
