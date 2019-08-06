@@ -82,6 +82,7 @@ class Extractor(object):
     def __call__(self, bbox_xywh, image):
         im_batch = self.extract_reid_features(bbox_xywh, image)
         # im_batch = self._preprocess(im_crops)
+        print('box shape', bbox_xywh.shape)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
             # print('im batch', im_batch.shape)
