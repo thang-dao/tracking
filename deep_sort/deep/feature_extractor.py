@@ -12,17 +12,17 @@ class Extractor(object):
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
         # state_dict = torch.load(model_path)['net_dict']
         # state_dict = torch.load(model_path)
+        self.size = (64, 128)
         print("Loading weights from {}... Done!".format(model_path))
         if model_name == "darknet":
             self.net = Net(reid=True)
-            self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
         elif model_name == "patchnet":
             self.net = patchnet()
-            self.size = (64, 128)
+            # self.size = (64, 128)
             self.norm = transforms.Compose([
                 transforms.Resize((384, 128)),
                 transforms.ToTensor(),
@@ -46,7 +46,6 @@ class Extractor(object):
         def _resize(im, size):
             return cv2.resize(im.astype(np.float32)/255., size)
 
-        # im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
         im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
         return im_batch
 
