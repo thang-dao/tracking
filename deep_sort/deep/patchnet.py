@@ -103,7 +103,7 @@ class PatchNet(nn.Module):
                 nn.init.constant_(m.bias, 0)
 
     def forward(self, x):
-
+        print(x.size(), self.stripe)
         x = self.backbone.conv1(x)
         x = self.backbone.bn1(x)
         x = self.backbone.relu(x)
