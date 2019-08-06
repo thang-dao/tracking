@@ -61,7 +61,7 @@ class Extractor(object):
     def extract_reid_features(self, image, tlbrs):
         imgCrops = []
         for box in tlbrs:
-            print('(box)', box)
+            # print('(box)', box)
             x1, y1, x2, y2 = box
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             imgCrop = self.norm(Image.fromarray(imgCrop).convert("RGB"))
@@ -80,7 +80,9 @@ class Extractor(object):
     #         # print('im batch', im_batch.shape)
     #         features = self.net(im_batch) 
     #     return features.cpu().numpy()
+
     def __call__(self, bbox_xywh, image):
+        print('bbox', bbox_xywh.shape)
         im_batch = self.extract_reid_features(bbox_xywh, image)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
