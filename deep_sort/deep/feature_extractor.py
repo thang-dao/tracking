@@ -61,6 +61,7 @@ class Extractor(object):
         imgCrops = []
         for box in tlbrs:
             x1, y1, x2, y2 = box
+            print(x1, y1, x2, y2)
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             print(imgCrop.shape)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
