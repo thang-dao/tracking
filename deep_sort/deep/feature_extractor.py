@@ -61,13 +61,13 @@ class Extractor(object):
         imgCrops = []
         height , width = image.shape[:2]
         for box in tlbrs:
-            x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
-            y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
-            x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
-            y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
-            # x, y, w, h = box
-            print(x1, y1, x2, y2)
-            imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
+            # x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
+            # y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
+            # x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
+            # y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
+            x, y, w, h = box
+            print(x, y, w, h)
+            imgCrop = image[int(x):int(x+w), int(y):int(y+h)]
             print(imgCrop.shape)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
