@@ -24,7 +24,7 @@ class Extractor(object):
             self.net = patchnet()
             # self.size = (64, 128)
             self.norm = transforms.Compose([
-                transforms.Resize((384, 128)),
+                # transforms.Resize((384, 128)),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
@@ -54,7 +54,7 @@ class Extractor(object):
         im_batch = self._preprocess(im_crops)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
-            # print('im batch', im_batch.shape)
+            print('im batch', im_batch.shape)
             features = self.net(im_batch)
         return features.cpu().numpy()
 
