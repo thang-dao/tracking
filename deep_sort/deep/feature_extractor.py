@@ -48,7 +48,7 @@ class Extractor(object):
             return cv2.resize(im.astype(np.float32)/255., size)
 
         # im_batch = torch.cat([self.norm(_resize(im, self.size)).unsqueeze(0) for im in im_crops], dim=0).float()
-        im_batch = torch.cat([self.norm(_resize(Image.fromarray(imgCrop).convert("RGB"), self.size).unsqueeze(0)) for imgCrop in im_crops])
+        im_batch = torch.cat([self.norm(Image.fromarray(imgCrop).convert("RGB").unsqueeze(0)) for imgCrop in im_crops])
         return im_batch
 
 
