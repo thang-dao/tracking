@@ -13,6 +13,6 @@ detector = detector_factory[opt.task](opt)
 
 # video = '/home/viettthangtik15/dataset/input/video_1.mp4'
 img = 'centernet/images/16004479832_a748d55f21_k.jpg'
-ret = detector.run(img)['category_id']
+ret = detector.run(img)
 for key, value in ret:
 	print(key)
