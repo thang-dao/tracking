@@ -12,7 +12,7 @@ detector = detector_factory[opt.task](opt)
 
 
 # video = '/home/viettthangtik15/dataset/input/video_1.mp4'
-image = 'centernet/images/17790319373_bd19b24cfc_k.jpg'
+image = 'output/2254.5898.png'
 img = cv2.imread(image, 1)
 ret = detector.run(img)
 count = 0
@@ -26,7 +26,7 @@ for key, value in ret['results'].items():
 		score = imcp[4]
 		if ids == 1:
 			count += 1
-			# imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
-			# cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(x1) +'.jpg', imgcrop)
+			imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
+			cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(x1) +'.jpg', imgcrop)
 print(len(ret['results'][1]), count)
 cv2.destroyAllWindows()
