@@ -16,3 +16,4 @@ img = 'centernet/images/16004479832_a748d55f21_k.jpg'
 ret = detector.run(img)
 for key, value in ret['results'].items():
 	print(key)
+print(ret['results']['1'])
