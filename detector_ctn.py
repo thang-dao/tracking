@@ -2,7 +2,7 @@ import sys
 CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib'
 sys.path.insert(0, CENTERNET_PATH)
 print(sys.path)
-from detector.dectector_factory import dectector_factory
+from centernet.src.lib.detector.dectector_factory import dectector_factory
 from opts import opts 
 MODEL_PATH = '~/centernet/models/ctdet_coco_dla_2x.pth'
 TASK = 'ctdet'
