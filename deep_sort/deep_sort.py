@@ -26,6 +26,15 @@ class DeepSort(object):
         self.height, self.width = ori_img.shape[:2]
         # generate detections
         features = self._get_features(bbox_xywh, ori_img)
+        #tlbr to xc_yc_wh
+        for box in bbox_xywh:
+            tmp_box = box
+            box[0] = (tmp_box[0] - tmp_box[2]) / 2 + tmp_box[2]
+            box[1] = (tmp_box[3] - tmp_box[1]) / 2 + tmp_box[1]
+            box[2] = (tmp_box[3] - tmp_box[1]) 
+            box[3] = (tmp_box[0] - tmp_box[2])
+            print(tmp_box)
+            print(box)
         bbox_tlwh = self._xywh_to_tlwh(bbox_xywh)
         # detections = [Detection(bbox_tlwh[i], conf, features[i]) for i,conf in enumerate(confidences) if conf>self.min_confidence] 
         
