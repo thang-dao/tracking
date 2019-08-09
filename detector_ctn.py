@@ -3,6 +3,7 @@ import sys
 # sys.path.insert(0, CENTERNET_PATH)
 from centernet.src.lib.detectors.detector_factory import detector_factory
 from opts import opts 
+print(sys.path)
 MODEL_PATH = 'centernet/models/ctdet_coco_dla_2x.pth'
 TASK = 'ctdet'
 opt = opts().init('{} --load_model'.format(TASK, MODEL_PATH).split(' '))
