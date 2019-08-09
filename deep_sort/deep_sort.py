@@ -30,8 +30,8 @@ class DeepSort(object):
         for box in bbox_xywh:
             tmp_box = box
             box[0] = (tmp_box[0] - tmp_box[2]) / 2 + tmp_box[2]
-            box[1] = (tmp_box[3] - tmp_box[1]) / 2 + tmp_box[1]
-            box[2] = (tmp_box[3] - tmp_box[1]) 
+            box[1] = (tmp_box[1] - tmp_box[3]) / 2 + tmp_box[3]
+            box[2] = (tmp_box[1] - tmp_box[3]) 
             box[3] = (tmp_box[0] - tmp_box[2])
             print(tmp_box)
             print(box)
