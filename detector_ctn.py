@@ -27,5 +27,5 @@ ret = detector.run(img)
 # 		if score > 0.3 and ids == 1:
 # 			imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
 # 			cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(x1) +'.jpg', imgcrop)
-print(len(ret['results'][1]))
+print(ret['results'][1])
 cv2.destroyAllWindows()
