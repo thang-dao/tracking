@@ -61,11 +61,11 @@ class Extractor(object):
         imgCrops = []
         height , width = image.shape[:2]
         for box in tlbrs:
-            # x, y, width, height = box
-            x1 = int(round(((box[0] - box[2]/2.0) * width).item()))
-            y1 = int(round(((box[1] - box[3]/2.0) * height).item()))
-            x2 = int(round(((box[0] + box[2]/2.0) * width).item()))
-            y2 = int(round(((box[1] + box[3]/2.0) * height).item()))
+            # x1, y1, x2, y2 = box
+            x1 = box[0]
+            y1 = box[1]
+            x2 = box[2]
+            y2 = box[3] 
             # print(x, y, width, height)
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             # cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
