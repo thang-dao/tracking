@@ -61,7 +61,7 @@ class Detector(object):
                 count += 1
                 im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
                 im = ori_im 
-                cv2.imwrite("/home/vietthangtik15/dataset/input/" + str(count) + ".jpg", ori_im)
+                # cv2.imwrite("/home/vietthangtik15/dataset/input/" + str(count) + ".jpg", ori_im)
                 # bbox_xcycwh, cls_conf, cls_ids = self.yolo3(im)
                 # if bbox_xcycwh is not None:
                 #     # select class person 
@@ -76,18 +76,31 @@ class Detector(object):
                 #         ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
 
 
-                # ret = self.centernet.run(ori_im)
-                # confidences = []
-                # if ret['results'] is not None:
-                #     for confi in ret['results'][1]:
-                #         confidences.append(confi[4])
-                #     outputs = self.deepsort.update(ret['results'][1], confidences, im)
-                #     if len(outputs) > 0:
-                #         bbox_xyxy = outputs[:,:4]
-                #         identities = outputs[:,-1]
-                #         ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
-                # end = time.time()
-                # print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
+                ret = self.centernet.run(ori_im)
+                confidences = []
+                if ret['results'] is not None:
+                    for confi in ret['results'][1]:
+                        confidences.append(confi[4])
+                    
+                    for imcp in ret['results'][1]:
+                        ids = 1
+                        x1 = imcp[0]
+                        y1 = imcp[1] 
+                        x2 = imcp[2]
+                        y2 = imcp[3] 
+                        score = imcp[4]
+                        if ids == 1:
+                            count += 1
+                            imgcrop = ori_im[int(y1):int(y2), int(x1):int(x2)]		
+                            print(imgcrop.shape)    
+
+                    # outputs = self.deepsort.update(ret['results'][1], confidences, im)
+                    # if len(outputs) > 0:
+                    #     bbox_xyxy = outputs[:,:4]
+                    #     identities = outputs[:,-1]
+                    #     ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
+                end = time.time()
+                print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
 
                 if self.args.save_path:
                     self.output.write(ori_im)
