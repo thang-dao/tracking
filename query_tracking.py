@@ -76,6 +76,7 @@ class Detector(object):
             if ret['results'] is not None:
                 for confi in ret['results'][1]:
                     confidences.append(confi[4])
+                print(confidences)
                 outputs = self.deepsort.update(ret['results'][1], confidences, im)
                 if len(outputs) > 0:
                     bbox_xyxy = outputs[:,:4]
