@@ -89,16 +89,17 @@ class Detector(object):
                         x2 = imcp[2]
                         y2 = imcp[3] 
                         score = imcp[4]
+                        print(x1, y1, x2, y2)
                         if ids == 1:
                             count += 1
                             imgcrop = ori_im[int(y1):int(y2), int(x1):int(x2)]		
                             print(imgcrop.shape)    
 
-                    # outputs = self.deepsort.update(ret['results'][1], confidences, im)
-                    # if len(outputs) > 0:
-                    #     bbox_xyxy = outputs[:,:4]
-                    #     identities = outputs[:,-1]
-                    #     ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
+                    outputs = self.deepsort.update(ret['results'][1], confidences, im)
+                    if len(outputs) > 0:
+                        bbox_xyxy = outputs[:,:4]
+                        identities = outputs[:,-1]
+                        ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
                 end = time.time()
                 print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
 
