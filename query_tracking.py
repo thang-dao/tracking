@@ -81,20 +81,6 @@ class Detector(object):
                 if ret['results'] is not None:
                     for confi in ret['results'][1]:
                         confidences.append(confi[4])
-                    
-                    for imcp in ret['results'][1]:
-                        ids = 1
-                        x1 = imcp[0]
-                        y1 = imcp[1] 
-                        x2 = imcp[2]
-                        y2 = imcp[3] 
-                        score = imcp[4]
-                        print('correct', x1, y1, x2, y2)
-                        if ids == 1:
-                            count += 1
-                            imgcrop = ori_im[int(y1):int(y2), int(x1):int(x2)]		
-                            print(imgcrop.shape)    
-
                     outputs = self.deepsort.update(ret['results'][1], confidences, im)
                     if len(outputs) > 0:
                         bbox_xyxy = outputs[:,:4]
