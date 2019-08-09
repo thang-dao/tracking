@@ -66,11 +66,11 @@ class Extractor(object):
             y1 = box[1]
             x2 = box[2]
             y2 = box[3] 
-            # print(x, y, width, height)
+            print(x1, y1, x2, y2)
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             # cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
             print(imgCrop.shape)
-            cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x1) + ".png", image)
+            cv2.imwrite("/home/vietthangtik15/dataset/output/"+ str(x1) + ".png", image)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
             imgCrops.append(imgCrop)
