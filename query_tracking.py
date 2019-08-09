@@ -89,7 +89,7 @@ class Detector(object):
                         x2 = imcp[2]
                         y2 = imcp[3] 
                         score = imcp[4]
-                        print(x1, y1, x2, y2)
+                        print('correct', x1, y1, x2, y2)
                         if ids == 1:
                             count += 1
                             imgcrop = ori_im[int(y1):int(y2), int(x1):int(x2)]		
