@@ -97,10 +97,10 @@ class DddDetector(BaseDetector):
       img, dets[0], show_box=self.opt.reg_bbox, 
       center_thresh=self.opt.vis_thresh, img_id='det_pred')
   
-  def show_results(self, debugger, image, results, out_video):
+  def show_results(self, debugger, image, results):
     debugger.add_3d_detection(
       image, results, self.this_calib,
       center_thresh=self.opt.vis_thresh, img_id='add_pred')
     debugger.add_bird_view(
       results, center_thresh=self.opt.vis_thresh, img_id='bird_pred')
-    debugger.show_all_imgs(out_video, pause=self.pause)
+    debugger.show_all_imgs(pause=self.pause)

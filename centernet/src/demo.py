@@ -6,7 +6,6 @@ import _init_paths
 
 import os
 import cv2
-import time 
 
 from opts import opts
 from detectors.detector_factory import detector_factory
@@ -20,34 +19,21 @@ def demo(opt):
   opt.debug = max(opt.debug, 1)
   Detector = detector_factory[opt.task]
   detector = Detector(opt)
-  fourcc = cv2.VideoWriter_fourcc(*'MJPG')
-  out_video = cv2.VideoWriter('/home/vietthangtik15/dataset/output/out_video_gtopia.avi',fourcc, 20.0, (640,480),True)
+
   if opt.demo == 'webcam' or \
     opt.demo[opt.demo.rfind('.') + 1:].lower() in video_ext:
     cam = cv2.VideoCapture(0 if opt.demo == 'webcam' else opt.demo)
     detector.pause = False
-    start = time.time()
-    num_frame = 0
     while True:
-        re, img = cam.read()
-        if re == True:
-          # img = cv2.flip(img, 0)
-          num_frame += 1
-          # out_video.write(img)
-          ret = detector.run(img, out_video)
-          
-          time_str = ''
-          for stat in time_stats:
-            time_str = time_str + '{} {:.3f}s |'.format(stat, ret[stat])
-          print(time_str)
-          # if cv2.waitKey(1) == 27:
-              # return  # esc to quit
-        else:
-            break
-    out_video.release()       
-    end = time.time()
-    seconds = end  - start
-    print('FPS', num_frame/seconds)
+        _, img = cam.read()
+        cv2.imshow('input', img)
+        ret = detector.run(img)
+        time_str = ''
+        for stat in time_stats:
+          time_str = time_str + '{} {:.3f}s |'.format(stat, ret[stat])
+        print(time_str)
+        if cv2.waitKey(1) == 27:
+            return  # esc to quit
   else:
     if os.path.isdir(opt.demo):
       image_names = []
@@ -64,6 +50,7 @@ def demo(opt):
       time_str = ''
       for stat in time_stats:
         time_str = time_str + '{} {:.3f}s |'.format(stat, ret[stat])
+      print(time_str)
 if __name__ == '__main__':
   opt = opts().init()
   demo(opt)

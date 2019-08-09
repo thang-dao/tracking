@@ -273,7 +273,6 @@ class opts(object):
     opt.exp_dir = os.path.join(opt.root_dir, 'exp', opt.task)
     opt.save_dir = os.path.join(opt.exp_dir, opt.exp_id)
     opt.debug_dir = os.path.join(opt.save_dir, 'debug')
-    opt.save_dir = "/home/vietthangtik15/dataset/output"
     print('The output will be saved to ', opt.save_dir)
     
     if opt.resume and opt.load_model == '':

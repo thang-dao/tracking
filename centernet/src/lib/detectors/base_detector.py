@@ -76,10 +76,10 @@ class BaseDetector(object):
   def debug(self, debugger, images, dets, output, scale=1):
     raise NotImplementedError
 
-  def show_results(self, debugger, image, results, out_video):
+  def show_results(self, debugger, image, results):
    raise NotImplementedError
 
-  def run(self, image_or_path_or_tensor, out_video, meta=None):
+  def run(self, image_or_path_or_tensor, meta=None):
     load_time, pre_time, net_time, dec_time, post_time = 0, 0, 0, 0, 0
     merge_time, tot_time = 0, 0
     debugger = Debugger(dataset=self.opt.dataset, ipynb=(self.opt.debug==3),
@@ -91,10 +91,7 @@ class BaseDetector(object):
     elif type(image_or_path_or_tensor) == type (''): 
       image = cv2.imread(image_or_path_or_tensor)
     else:
-      # try:
       image = image_or_path_or_tensor['image'][0].numpy()
-      # except: 
-        # print('NoneType')
       pre_processed_images = image_or_path_or_tensor
       pre_processed = True
     
@@ -140,7 +137,7 @@ class BaseDetector(object):
     tot_time += end_time - start_time
 
     if self.opt.debug >= 1:
-      self.show_results(debugger, image, results, out_video)
+      self.show_results(debugger, image, results)
     
     return {'results': results, 'tot': tot_time, 'load': load_time,
             'pre': pre_time, 'net': net_time, 'dec': dec_time,

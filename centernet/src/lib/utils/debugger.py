@@ -7,7 +7,7 @@ import cv2
 from .ddd_utils import compute_box_3d, project_to_image, draw_box_3d
 
 class Debugger(object):
-  def __init__(self, ipynb=True, theme='black', 
+  def __init__(self, ipynb=False, theme='black', 
                num_classes=-1, dataset=None, down_ratio=4):
     self.ipynb = ipynb
     if not self.ipynb:
@@ -79,8 +79,7 @@ class Debugger(object):
       bg * (1 - trans)).astype(np.uint8)
   
   def show_img(self, pause = False, imgId = 'default'):
-    # cv2.imshow('{}'.format(imgId), self.imgs[imgId])
-    cv2.imimwrite('{}'.format(imgId), self.imgs[imgId])
+    cv2.imshow('{}'.format(imgId), self.imgs[imgId])
     if pause:
       cv2.waitKey()
   
@@ -213,14 +212,13 @@ class Debugger(object):
                                        points[i][j][1] * self.down_ratio),
                    3, (int(c[0]), int(c[1]), int(c[2])), -1)
 
-  def show_all_imgs(self, out_video, pause=False, time=0):
+  def show_all_imgs(self, pause=False, time=0):
     if not self.ipynb:
       for i, v in self.imgs.items():
-        # cv2.imwrite('/home/vietthangtik15/dataset/{}.jpg'.format(str(v[0][0])), v)
-        out_video.write(v)
-        # if cv2.waitKey(0 if pause else 1) == 27:
-        #   import sys
-        #   sys.exit(0)
+        cv2.imshow('{}'.format(i), v)
+      if cv2.waitKey(0 if pause else 1) == 27:
+        import sys
+        sys.exit(0)
     else:
       self.ax = None
       nImgs = len(self.imgs)
@@ -233,12 +231,12 @@ class Debugger(object):
           self.plt.imshow(cv2.cvtColor(v, cv2.COLOR_BGR2RGB))
         else:
           self.plt.imshow(v)
-      # self.plt.show()
+      self.plt.show()
 
-  def save_img(self, imgId='default', path='/home/vietthangtik15/dataset/'):
+  def save_img(self, imgId='default', path='./cache/debug/'):
     cv2.imwrite(path + '{}.png'.format(imgId), self.imgs[imgId])
     
-  def save_all_imgs(self, path='/home/vietthangtik15/dataset/', prefix='', genID=False):
+  def save_all_imgs(self, path='./cache/debug/', prefix='', genID=False):
     if genID:
       try:
         idx = int(np.loadtxt(path + '/id.txt'))
