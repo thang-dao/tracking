@@ -16,7 +16,7 @@ detector = detector_factory[opt.task](opt)
 img = 'centernet/images/17790319373_bd19b24cfc_k.jpg'
 ret = detector.run(img)
 for key, value in ret.items():
-	x1, y1, x2, y2 = ret['result']
+	x1, y1, x2, y2 = ret['results']
 	print(x1, y1, x2, y2)
 	imgcrop = img[int(y1):int(y2), int(x1):int(x2)]
 	cv2.imwrite('/home/dataset/output/' + str(x1) +'jpg', imgcrop)
