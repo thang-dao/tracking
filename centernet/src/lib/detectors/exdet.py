@@ -123,10 +123,10 @@ class ExdetDetector(BaseDetector):
     return results
 
 
-  def show_results(self, debugger, image, results):
+  def show_results(self, debugger, image, results, out_video):
     debugger.add_img(image, img_id='exdet')
     for j in range(1, self.num_classes + 1):
       for bbox in results[j]:
         if bbox[4] > self.opt.vis_thresh:
           debugger.add_coco_bbox(bbox[:4], j - 1, bbox[4], img_id='exdet')
-    debugger.show_all_imgs(pause=self.pause)
+    debugger.show_all_imgs(out_video, pause=self.pause)

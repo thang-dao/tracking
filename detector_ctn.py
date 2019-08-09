@@ -24,7 +24,7 @@ for key, value in ret['results'].items():
 		x2 = imcp[2]
 		y2 = imcp[3] 
 		score = imcp[4]
-		if score > 0.3:
+		if score > 0.3 and id == 0:
 			imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
 			cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(x1) +'.jpg', imgcrop)
 cv2.destroyAllWindows()
