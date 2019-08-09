@@ -69,7 +69,7 @@ class Extractor(object):
             # print(x, y, width, height)
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             # cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
-            # print(imgCrop.shape)
+            print(imgCrop.shape)
             # cv2.imwrite("/home/vietthangtik15/tracking/"+ str(x) + ".png", image)
             imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
             imgCrop = imgCrop.unsqueeze(0)
