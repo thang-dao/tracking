@@ -1,6 +1,6 @@
 import sys
-# CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib/'
-# sys.path.insert(0, CENTERNET_PATH)
+CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib/'
+sys.path.insert(0, CENTERNET_PATH)
 import _init_paths
 from centernet.src.lib.detectors.detector_factory import detector_factory
 from opts import opts 
@@ -13,5 +13,4 @@ detector = detector.detector_factory[opt.task](opt)
 
 video = '/home/viettthangtik15/dataset/input/video_1.mp4'
 ret = detector.run(video)['category_id']
-print(ret)
 
