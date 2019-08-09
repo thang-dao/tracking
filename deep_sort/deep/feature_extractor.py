@@ -61,6 +61,7 @@ class Extractor(object):
         imgCrops = []
         height , width = image.shape[:2]
         for box in tlbrs:
+            print(len(box))
             # x1, y1, x2, y2 = box
             x1 = box[0]
             y1 = box[1]
