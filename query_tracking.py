@@ -3,7 +3,7 @@ import cv2
 import time
 import argparse
 import numpy as np
-
+import sys
 CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib/'
 sys.path.insert(0, CENTERNET_PATH)
 
