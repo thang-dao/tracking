@@ -71,9 +71,10 @@ class Extractor(object):
             print(imgCrop.shape)
             print('incorrect',x1, y1, x2, y2) 
             cv2.imwrite("/home/vietthangtik15/dataset/output/"+ str(x1) + ".png", imgCrop)
-            imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
-            imgCrop = imgCrop.unsqueeze(0)
-            imgCrops.append(imgCrop)
+            if imgCrop.shape[0] > 0 and imgCrop.shape[1] > 0:
+                imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
+                imgCrop = imgCrop.unsqueeze(0)
+                imgCrops.append(imgCrop)
 
         imgCrops = torch.cat(imgCrops, 0)
         imgCrops = imgCrops.cuda()
