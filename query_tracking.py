@@ -61,7 +61,7 @@ class Detector(object):
                 count += 1
                 im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
                 im = ori_im 
-                cv2.imwrite("home/vietthangtik15/dataset/input/" + str(count) + ".jpg", ori_im)
+                cv2.imwrite("/home/vietthangtik15/dataset/input/" + str(count) + ".jpg", ori_im)
                 # bbox_xcycwh, cls_conf, cls_ids = self.yolo3(im)
                 # if bbox_xcycwh is not None:
                 #     # select class person 
