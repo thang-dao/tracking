@@ -11,6 +11,7 @@ opt = opts().init('{} --load_model'.format(TASK, MODEL_PATH).split(' '))
 detector = detector.detector_factory[opt.task](opt)
 
 
-video = '/home/viettthangtik15/dataset/input/video_1.mp4'
-ret = detector.run(video)['category_id']
+# video = '/home/viettthangtik15/dataset/input/video_1.mp4'
+img = 'images/ori_im.jpg'
+ret = detector.run(img)['category_id']
 
