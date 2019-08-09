@@ -68,8 +68,8 @@ class Extractor(object):
             y2 = box[3] 
             imgCrop = image[int(y1):int(y2), int(x1):int(x2)]
             # cv2.circle(image, (int(x),int(y)), width, (255, 255, 0))
-            print(imgCrop.shape)
-            print('incorrect',x1, y1, x2, y2) 
+            # print(imgCrop.shape)
+            # print('incorrect',x1, y1, x2, y2) 
             cv2.imwrite("/home/vietthangtik15/dataset/output/"+ str(x1) + ".png", imgCrop)
             if imgCrop.shape[0] > 0 and imgCrop.shape[1] > 0:
                 imgCrop = self.transform(Image.fromarray(imgCrop).convert("RGB"))
