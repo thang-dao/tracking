@@ -18,12 +18,13 @@ img = cv2.imread(image, 1)
 ret = detector.run(img)
 for key, value in ret['results'].items():
 	for imcp in value:
-		id = key
+		ids = key
 		x1 = imcp[0]
 		y1 = imcp[1] 
 		x2 = imcp[2]
 		y2 = imcp[3] 
 		score = imcp[4]
+		print(ids)
 		if score > 0.3 and id == 0:
 			imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
 			cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(x1) +'.jpg', imgcrop)
