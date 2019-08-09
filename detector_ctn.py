@@ -16,15 +16,13 @@ detector = detector_factory[opt.task](opt)
 img = 'centernet/images/17790319373_bd19b24cfc_k.jpg'
 ret = detector.run(img)
 for key, value in ret['results'].items():
-	print(key)
-	print(value)
-	id = key
-	x1 = value[0]
-	y1 = value[1] 
-	x2 = value[2]
-	y2 = value[3] 
-	score = value[4]
-	print(id, x1)
-	# imgcrop = img[int(y1):int(y2), int(x1):int(x2)]
-	# cv2.imwrite('/home/dataset/output/' + str(x1) +'jpg', imgcrop)
-# cv2.destroyAllWindows()
+	for imcp in value:
+		id = key
+		x1 = imcp[0]
+		y1 = imcp[1] 
+		x2 = imcp[2]
+		y2 = imcp[3] 
+		score = imcp[4]
+		imgcrop = img[int(y1):int(y2), int(x1):int(x2)]
+		cv2.imwrite('/home/dataset/output/' + str(x1) +'jpg', imgcrop)
+	cv2.destroyAllWindows()
