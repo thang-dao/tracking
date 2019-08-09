@@ -28,6 +28,7 @@ for img in glob.glob(dirs):
 			if ids == 1:
 				count += 1
 				imgcrop = img[int(y1):int(y2), int(x1):int(x2)]		
-				cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(count) +'.jpg', imgcrop)
+				print(imgcrop.shape)
+				# cv2.imwrite('/home/vietthangtik15/dataset/output/' + str(count) +'.jpg', imgcrop)
 	print(len(ret['results'][1]), count)
 cv2.destroyAllWindows()
