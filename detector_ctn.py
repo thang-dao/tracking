@@ -7,7 +7,7 @@ from opts import opts
 
 MODEL_PATH = 'centernet/models/ctdet_coco_dla_2x.pth'
 TASK = 'ctdet'
-opt = opts().init('{} --load_model'.format(TASK, MODEL_PATH).split(' '))
+opt = opts().init('{} --load_model {}'.format(TASK, MODEL_PATH).split(' '))
 detector = detector.detector_factory[opt.task](opt)
 
 
