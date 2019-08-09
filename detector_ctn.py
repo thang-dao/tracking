@@ -1,7 +1,7 @@
 import sys
 # CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib/'
 # sys.path.insert(0, CENTERNET_PATH)
-print(sys.path)
+from centernet.src import _init_paths
 from centernet.src.lib.detectors.detector_factory import detector_factory
 from opts import opts 
 
