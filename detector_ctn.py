@@ -12,7 +12,7 @@ detector = detector_factory[opt.task](opt)
 
 
 # video = '/home/viettthangtik15/dataset/input/video_1.mp4'
-image = 'output/2254.5898.png'
+image = '/home/vietthangtik15/dataset/input/ori_im.jpg'
 img = cv2.imread(image, 1)
 ret = detector.run(img)
 count = 0
