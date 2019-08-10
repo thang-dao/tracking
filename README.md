@@ -60,7 +60,7 @@ cd ../../../
 
 4. Run demo
 ```
-usage: demo_yolo3_deepsort.py VIDEO_PATH
+usage: query_tracking.py VIDEO_PATH
                               [--help] 
                               [--yolo_cfg YOLO_CFG]
                               [--yolo_weights YOLO_WEIGHTS]
