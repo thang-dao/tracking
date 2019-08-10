@@ -78,15 +78,15 @@ class Detector(object):
 
                 ret = self.centernet.run(ori_im)
                 confidences = []
-                bbox = []
                 if ret['results'] is not None:
                     for box in ret['results'][1]:
                         for i in range(4):
                             if box[i] < 0:
                                 box[i] = 0 
                         confidences.append(box[4])
-                        np.append(bbox, box[:4], axis=0)
-                    outputs = self.deepsort.update(bbox, confidences, im)
+                        # np.append(bbox, box[:4], axis=0)
+                    np.delete(ret['results'][1], 1, 1)
+                    outputs = self.deepsort.update(ret['results'][1], confidences, im)
                     if len(outputs) > 0:
                         bbox_xyxy = outputs[:,:4]
                         identities = outputs[:,-1]
