@@ -84,10 +84,7 @@ class Detector(object):
                             if box[i] < 0:
                                 box[i] = 0 
                         confidences.append(box[4])
-                    boxs = np.copy(ret['results'][1][:4])
-                    print(boxs)
-                    print(ret['results'][1].shape)
-                    outputs = self.deepsort.update(boxs, confidences, im)
+                    outputs = self.deepsort.update(ret['results'][1], confidences, im)
                     if len(outputs) > 0:
                         bbox_xyxy = outputs[:,:4]
                         identities = outputs[:,-1]
