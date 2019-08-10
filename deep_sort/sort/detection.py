@@ -45,6 +45,6 @@ class Detection(object):
         """
         ret = self.tlwh.copy()
         print(ret)
-        ret[:2] += ret[2:] / 2
+        ret[:2] += ret[2:4] / 2
         ret[2] /= ret[3]
         return ret
