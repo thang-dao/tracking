@@ -17,7 +17,8 @@ class Extractor(object):
         print("Loading weights from {}... Done!".format(model_path))
         if model_name == "darknet":
             self.net = Net(reid=True)
-            self.norm = transforms.Compose([
+            self.transform = transforms.Compose([
+                transform.Resize(64, 128),
                 transforms.ToTensor(),
                 transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
             ])
