@@ -86,7 +86,7 @@ class Detector(object):
                                 box[i] = 0 
                         confidences.append(box[4])
                         bbox.append(box[:4])
-                        print(bbox.shape)
+                        print(bbox)
                     outputs = self.deepsort.update(ret['results'][1], confidences, im)
                     if len(outputs) > 0:
                         bbox_xyxy = outputs[:,:4]
