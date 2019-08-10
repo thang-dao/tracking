@@ -85,6 +85,7 @@ class Detector(object):
                                 box[i] = 0 
                         confidences.append(box[4])
                     boxs = np.copy(ret['results'][1][:4])
+                    print(boxs)
                     print(ret['results'][1].shape)
                     outputs = self.deepsort.update(boxs, confidences, im)
                     if len(outputs) > 0:
