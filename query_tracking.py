@@ -78,6 +78,7 @@ class Detector(object):
 
                 ret = self.centernet.run(ori_im)
                 confidences = []
+                print(ret['results'])
                 if ret['results'] is not None:
                     for box in ret['results'][1]:
                         for i in range(4):
