@@ -22,19 +22,12 @@ class DeepSort(object):
         metric = NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
         self.tracker = Tracker(metric)
 
-    def update(self, bbox_xywh, confidences, ori_img):
+    def update(self, tlbr, confidences, ori_img):
         self.height, self.width = ori_img.shape[:2]
         # generate detections
-        features = self._get_features(bbox_xywh, ori_img)
+        features = self._get_features(tlbr, ori_img)
         #tlbr to xc_yc_wh
-        for box in bbox_xywh:
-            tmp_box = box
-            box[0] = (tmp_box[0] - tmp_box[2]) / 2 + tmp_box[2]
-            box[1] = (tmp_box[1] - tmp_box[3]) / 2 + tmp_box[3]
-            box[2] = (tmp_box[1] - tmp_box[3]) 
-            box[3] = (tmp_box[0] - tmp_box[2])
-            print(tmp_box)
-            print(box)
+        bbox_xywh = self._tlbr_to_xcycwh(tlbr)
         bbox_tlwh = self._xywh_to_tlwh(bbox_xywh)
         # detections = [Detection(bbox_tlwh[i], conf, features[i]) for i,conf in enumerate(confidences) if conf>self.min_confidence] 
         
@@ -75,7 +68,7 @@ class DeepSort(object):
         bbox_xywh[:,1] = bbox_xywh[:,1] - bbox_xywh[:,3]/2.
         return bbox_xywh
 
-
+        
     def _xywh_to_xyxy(self, bbox_xywh):
         x,y,w,h = bbox_xywh
         x1 = max(int(x-w/2),0)
@@ -83,6 +76,21 @@ class DeepSort(object):
         y1 = max(int(y-h/2),0)
         y2 = min(int(y+h/2),self.height-1)
         return x1,y1,x2,y2
+
+    def _tlbr_to_xcycwh(self, tlbr):
+        h = tlbr[3] - tlbr[1]
+        w = tlbr[2] - tlbr[0]
+        if h < 1:
+            h = 1.0
+        if w < 1:
+            w = 1.0
+        yc = int(h/2) + tlbr[1]
+        xc = int(w/2) + tlbr[0]
+        tlbr[0] = xc
+        tlbr[1] = yc
+        tlbr[2] = w
+        tlbr[3] = h
+        return tlbr
 
     def _tlwh_to_xyxy(self, bbox_tlwh):
         """
