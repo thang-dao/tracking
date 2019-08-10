@@ -55,61 +55,61 @@ class Detector(object):
 
     def detect(self):
         count = 0
-        # while self.vdo.grab(): 
-        #     start = time.time()
-        #     re, ori_im = self.vdo.retrieve()
-        #     if re == True:
-        #         count += 1
-        #         im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
-        #         im = ori_im 
-        #         ret = self.centernet.run(ori_im)
-        #         confidences = []
-
-        #         if ret['results'] is not None:
-        #             for box in ret['results'][1]:
-        #                 for i in range(4):
-        #                     if box[i] < 0:
-        #                         box[i] = 0 
-        #                 confidences.append(box[4])
-        #             ret['results'][1] = np.delete(ret['results'][1], 4, axis=1)
-        #             outputs = self.deepsort.update(ret['results'][1], confidences, im)
-        #             if len(outputs) > 0:
-        #                 count += 1
-        #                 bbox_xyxy = outputs[:,:4]
-        #                 identities = outputs[:,-1]
-        #                 ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
-        #                 cv2.imwrite("/home/vietthangtik15/dataset/output/" + str(count) + ".jpg", ori_im)
-        #         end = time.time()
-        #         print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
-
-        #         if self.args.save_path:
-        #             self.output.write(ori_im)
-        #     else:
-        #         break
-        dirs = '/home/vietthangtik15/dataset/input/*.jpg'
-        for img in glob.glob(dirs):
+        while self.vdo.grab(): 
             start = time.time()
-            ori_im = cv2.imread(img, 1)
-            im = ori_im 
-            ret = self.centernet.run(ori_im)
-            confidences = []
+            re, ori_im = self.vdo.retrieve()
+            if re == True:
+                count += 1
+                im = cv2.cvtColor(ori_im, cv2.COLOR_BGR2RGB)
+                im = ori_im 
+                ret = self.centernet.run(ori_im)
+                confidences = []
 
-            if ret['results'] is not None:
-                for box in ret['results'][1]:
-                    for i in range(4):
-                        if box[i] < 0:
-                            box[i] = 0 
-                    confidences.append(box[4])
-                ret['results'][1] = np.delete(ret['results'][1], 4, axis=1)
-                outputs = self.deepsort.update(ret['results'][1], confidences, im)
-                if len(outputs) > 0:
-                    count += 1
-                    bbox_xyxy = outputs[:,:4]
-                    identities = outputs[:,-1]
-                    ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
-                    cv2.imwrite("/home/vietthangtik15/dataset/output/" + str(count) + ".jpg", ori_im)
-            end = time.time()
-            print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
+                if ret['results'] is not None:
+                    for box in ret['results'][1]:
+                        for i in range(4):
+                            if box[i] < 0:
+                                box[i] = 0 
+                        confidences.append(box[4])
+                    ret['results'][1] = np.delete(ret['results'][1], 4, axis=1)
+                    outputs = self.deepsort.update(ret['results'][1], confidences, im)
+                    if len(outputs) > 0:
+                        count += 1
+                        bbox_xyxy = outputs[:,:4]
+                        identities = outputs[:,-1]
+                        ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
+                        cv2.imwrite("/home/vietthangtik15/dataset/output/" + str(count) + ".jpg", ori_im)
+                end = time.time()
+                print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
+
+                if self.args.save_path:
+                    self.output.write(ori_im)
+            else:
+                break
+        # dirs = '/home/vietthangtik15/dataset/input/*.jpg'
+        # for img in glob.glob(dirs):
+        #     start = time.time()
+        #     ori_im = cv2.imread(img, 1)
+        #     im = ori_im 
+        #     ret = self.centernet.run(ori_im)
+        #     confidences = []
+
+        #     if ret['results'] is not None:
+        #         for box in ret['results'][1]:
+        #             for i in range(4):
+        #                 if box[i] < 0:
+        #                     box[i] = 0 
+        #             confidences.append(box[4])
+        #         ret['results'][1] = np.delete(ret['results'][1], 4, axis=1)
+        #         outputs = self.deepsort.update(ret['results'][1], confidences, im)
+        #         if len(outputs) > 0:
+        #             count += 1
+        #             bbox_xyxy = outputs[:,:4]
+        #             identities = outputs[:,-1]
+        #             ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
+        #             cv2.imwrite("/home/vietthangtik15/dataset/output/" + str(count) + ".jpg", ori_im)
+        #     end = time.time()
+        #     print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
 
 
 
