@@ -77,20 +77,21 @@ class DeepSort(object):
         y2 = min(int(y+h/2),self.height-1)
         return x1,y1,x2,y2
 
-    def _tlbr_to_xcycwh(self, tlbr):
-        h = tlbr[3] - tlbr[1]
-        w = tlbr[2] - tlbr[0]
-        if h < 1:
-            h = 1.0
-        if w < 1:
-            w = 1.0
-        yc = int(h/2) + tlbr[1]
-        xc = int(w/2) + tlbr[0]
-        tlbr[0] = xc
-        tlbr[1] = yc
-        tlbr[2] = w
-        tlbr[3] = h
-        return tlbr
+    def _tlbr_to_xcycwh(self, tlbrs):
+        for tlbr in tlbrs:
+            h = tlbr[3] - tlbr[1]
+            w = tlbr[2] - tlbr[0]
+            if h < 1:
+                h = 1.0
+            if w < 1:
+                w = 1.0
+            yc = int(h/2) + tlbr[1]
+            xc = int(w/2) + tlbr[0]
+            tlbr[0] = xc
+            tlbr[1] = yc
+            tlbr[2] = w
+            tlbr[3] = h
+        return tlbrs
 
     def _tlwh_to_xyxy(self, bbox_tlwh):
         """
