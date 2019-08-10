@@ -88,9 +88,11 @@ class Detector(object):
                     ret['results'][1] = np.delete(ret['results'][1], 4, axis=1)
                     outputs = self.deepsort.update(ret['results'][1], confidences, im)
                     if len(outputs) > 0:
+                        count += 1
                         bbox_xyxy = outputs[:,:4]
                         identities = outputs[:,-1]
                         ori_im = draw_bboxes(ori_im, bbox_xyxy, identities)
+                        cv2.imwrite("/home/vietthangtik15/dataset/output/" + str(count) + ".jpg", ori_im)
                 end = time.time()
                 print("time: {}s, fps: {}".format(end-start, 1/(end-start)))
 
