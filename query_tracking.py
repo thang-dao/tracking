@@ -5,7 +5,7 @@ import argparse
 import numpy as np
 import sys
 import glob
-CENTERNET_PATH = '/home/vietthangtik15/tracking/centernet/src/lib/'
+CENTERNET_PATH = '/content/tracking/centernet/src/lib/'
 sys.path.insert(0, CENTERNET_PATH)
 
 from detectors.detector_factory import detector_factory
@@ -116,7 +116,7 @@ class Detector(object):
             
 
 def parse_args():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser() 
     parser.add_argument("--VIDEO_PATH", type=str, default="/home/vietthangtik15/dataset/input/video_1.mp4")
     parser.add_argument("--yolo_cfg", type=str, default="YOLOv3/cfg/yolo_v3.cfg")
     parser.add_argument("--yolo_weights", type=str, default="YOLOv3/yolov3.weights")
